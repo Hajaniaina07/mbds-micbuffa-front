@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AssignmentsService } from './shared/assignments.service';
-import { AuthService } from './shared/auth.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AssignmentsService} from './shared/assignments.service';
+import {AuthService} from './shared/auth.service';
+import {User} from "./users/user.model";
 
 @Component({
   selector: 'app-root',
@@ -9,28 +10,13 @@ import { AuthService } from './shared/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  titre = 'Application de gestion des assignments...';
+  titre = 'Application de gestion des assignments';
+  isAuthenticated: any;
+  user!: User;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private assignmentsService: AssignmentsService
-  ) {}
-
-  onLoginLogout() {
-    if (this.authService.loggedIn) {
-      console.log('je me deloggue');
-      this.authService.logOut();
-      // et je navigue vers la page d'accueil
-      this.router.navigate(['/home']);
-    } else {
-      console.log('je me loggue');
-      this.authService.logIn('michel', 'monpassword');
-    }
-  }
-
-  isLogged() {
-    return this.authService.loggedIn;
+  constructor(private authService: AuthService, private router: Router, private assignmentsService: AssignmentsService) {
+    this.isAuthenticated = this.authService.loggedIn;
+    this.user = this.authService.user;
   }
 
   genererDonneesDeTest() {
@@ -42,7 +28,11 @@ export class AppComponent {
       // replaceUrl = true = force le refresh, même si
       // on est déjà sur la page d’accueil
       // Marche plus avec la dernière version d’angular
-      this.router.navigate(['/home'], { replaceUrl: true });
+      this.router.navigate(['/home'], {replaceUrl: true});
     });
+  }
+
+  logout() {
+    this.authService.logOut();
   }
 }

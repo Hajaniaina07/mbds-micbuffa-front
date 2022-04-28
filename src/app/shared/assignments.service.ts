@@ -1,27 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, filter, forkJoin, map, Observable, of, pairwise, tap } from 'rxjs';
-import { Assignment } from '../assignments/assignment.model';
-import { LoggingService } from './logging.service';
-import { bdInitialAssignments } from './data';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {catchError, forkJoin, map, Observable, of, tap} from 'rxjs';
+import {Assignment} from '../assignments/assignment.model';
+import {LoggingService} from './logging.service';
+import {bdInitialAssignments} from './data';
+import * as hosts from "../../assets/url.json";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AssignmentsService {
-  assignments:Assignment[] = [];
+  assignments: Assignment[] = [];
+  url: any;
 
-  constructor(private loggingService:LoggingService, private http:HttpClient) {
+  constructor(private loggingService: LoggingService, private http: HttpClient) {
     this.loggingService.setNiveauTrace(2);
-
+    const hsts = hosts;
+    this.url = hsts.urlHost + '/assignments';
   }
 
-
-  url = "http://localhost:8010/api/assignments";
-  //url= "https://mbdsmadagascar2022api.herokuapp.com/api/assignments";
-
-  getAssignments(page:number, limit:number):Observable<any> {
+  getAssignments(page: number, limit: number): Observable<any> {
     // en réalité, bientôt au lieu de renvoyer un tableau codé en dur,
     // on va envoyer une requête à un Web Service sur le cloud, qui mettra un
     // certain temps à répondre. On va donc préparer le terrain en renvoyant
@@ -30,20 +29,20 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.url + "?page=" + page + "&limit=" + limit);
   }
 
-  getAssignment(id:number):Observable<Assignment|undefined> {
+  getAssignment(id: number): Observable<Assignment | undefined> {
     //let a = this.assignments.find(a => a.id === id);
     //return of(a);
     return this.http.get<Assignment>(`${this.url}/${id}`)
-    .pipe(
-      map(a => {
-        a.nom = a.nom + " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
-        return a;
-      }),
-      tap(a => {
-        console.log("Dans le tap, pour debug, assignment recu = " + a.nom)
-      }),
-      catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
-    );
+      .pipe(
+        map(a => {
+          a.nom = a.nom + " MODIFIE PAR UN MAP AVANT DE L'ENVOYER AU COMPOSANT D'AFFICHAGE";
+          return a;
+        }),
+        tap(a => {
+          console.log("Dans le tap, pour debug, assignment reçu = " + a.nom)
+        }),
+        catchError(this.handleError<any>('### catchError: getAssignments by id avec id=' + id))
+      );
   }
 
   private handleError<T>(operation: any, result?: T) {
@@ -55,8 +54,8 @@ export class AssignmentsService {
     }
   }
 
-  addAssignment(assignment:Assignment):Observable<any> {
-   // this.assignments.push(assignment);
+  addAssignment(assignment: Assignment): Observable<any> {
+    // this.assignments.push(assignment);
 
     this.loggingService.log(assignment.nom, "ajouté");
 
@@ -65,13 +64,13 @@ export class AssignmentsService {
     //return of("Assignment ajouté");
   }
 
-  updateAssignment(assignment:Assignment):Observable<any> {
+  updateAssignment(assignment: Assignment): Observable<any> {
     this.loggingService.log(assignment.nom, "modifié");
 
     return this.http.put<Assignment>(this.url, assignment);
   }
 
-  deleteAssignment(assignment:Assignment):Observable<any> {
+  deleteAssignment(assignment: Assignment): Observable<any> {
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos, 1);
 
@@ -90,17 +89,17 @@ export class AssignmentsService {
       newAssignment.id = a.id;
 
       this.addAssignment(newAssignment)
-      .subscribe(reponse => {
-        console.log(reponse.message);
-      })
+        .subscribe(reponse => {
+          console.log(reponse.message);
+        })
     })
   }
 
   peuplerBDAvecForkJoin(): Observable<any> {
-    const appelsVersAddAssignment:any = [];
+    const appelsVersAddAssignment: any = [];
 
     bdInitialAssignments.forEach((a) => {
-      const nouvelAssignment:any = new Assignment();
+      const nouvelAssignment: any = new Assignment();
 
       nouvelAssignment.id = a.id;
       nouvelAssignment.nom = a.nom;

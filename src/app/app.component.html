@@ -1,14 +1,56 @@
-<div class="container">
-  <h1>
-    <nav>
-      <a routerLink="/home">{{titre}}</a>
-    </nav>
-  </h1>
-  <mat-slide-toggle (click)="onLoginLogout()">Login</mat-slide-toggle>
-  <br>
-  <!--
-  <button mat-button color="primary" (click)="genererDonneesDeTest()">Peupler BD avec données de test</button>
-  -->
-</div>
+<!--<div class="container">-->
+<!--  <h1>-->
+<!--    <nav>-->
+<!--      <a routerLink="/home">{{titre}}</a>-->
+<!--    </nav>-->
+<!--  </h1>-->
+<!--  <mat-slide-toggle (click)="onLoginLogout()">Login</mat-slide-toggle>-->
+<!--  <br>-->
+<!--  &lt;!&ndash;-->
+<!--  <button mat-button color="primary" (click)="genererDonneesDeTest()">Peupler BD avec données de test</button>-->
+<!--  &ndash;&gt;-->
+<!--</div>-->
 
+<!--<router-outlet></router-outlet>-->
+
+<mat-toolbar color="secondary" fxLayout="row" fxLayoutAlign="space-between center">
+  <span>
+        <button mat-flat-button color="primary" routerLink="/"><mat-icon>home</mat-icon>
+          {{titre}}
+        </button>
+  </span>
+  <span>
+  <a mat-button href="">Devoirs</a>
+  <a mat-button href="">Matières</a>df
+  <a mat-button href="">Utilisateurs</a>
+  </span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
+      <mat-icon>power_settings_new</mat-icon>
+      Se connecter
+    </button>
+    <label *ngIf="isAuthenticated"> <strong>{{user.username}}</strong>
+      <span class="mat-small"> ({{user.profile}})</span>
+    </label>
+    <button title="Se déconnecter" mat-button *ngIf="isAuthenticated" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/login" *ngIf="!isAuthenticated">
+    <mat-icon>power_settings_new</mat-icon>
+    Login
+  </button>
+  <label *ngIf="isAuthenticated"> <strong>{{user.username}}</strong>
+    <span class="mat-small"> ({{user.profile}})</span>
+  </label>
+  <button mat-menu-item *ngIf="isAuthenticated" (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-menu>
 <router-outlet></router-outlet>

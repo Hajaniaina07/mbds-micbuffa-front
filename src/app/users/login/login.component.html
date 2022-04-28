@@ -1,0 +1,18 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Connexion</mat-card-title>
+    </mat-card-header>
+    <form ngForm (submit)="onSubmit()" class="example-form">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput name="username" [(ngModel)]="user.username" placeholder="Nom d'utilisateur">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput name="password" [(ngModel)]="user.password" placeholder="Mot de passe">
+        </mat-form-field>
+      </mat-card-content>
+      <button mat-stroked-button color="accent" class="btn-block">Se connecter</button>
+    </form>
+  </mat-card>
+</div>

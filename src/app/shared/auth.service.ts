@@ -1,25 +1,23 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {User} from "../users/user.model";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  loggedIn = false;
-
-  logIn(login:string, password:string) {
-    // normalement il faudrait envoyer une requête sur un web service, passer le login et le password
-    // et recevoir un token d'authentification, etc. etc.
-
-    // pour le moment, si on appelle cette méthode, on ne vérifie rien et on se loggue
-    this.loggedIn = true;
-  }
+  token = localStorage.getItem('token');
+  loggedIn = !!this.token;
+  user = JSON.parse(<string>localStorage.getItem('user')) as User;
 
   logOut() {
-    this.loggedIn = false;
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 
   isAdmin() {
     let isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.loggedIn);
+      resolve(this.user.profile === 'admin');
     });
     //return this.loggedIn;
     return isUserAdmin;
@@ -27,5 +25,6 @@ export class AuthService {
 
   // isAdmin().then(admin => { if(admin) { console.log("L'utilisateur est administrateur"); }})
 
-  constructor() { }
+  constructor() {
+  }
 }
