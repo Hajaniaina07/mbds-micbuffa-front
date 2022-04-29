@@ -1,0 +1,93 @@
+<mat-card *ngIf="add" style="margin-bottom: 15px;">
+  <h3 class="text-center text-decoration-underline bg-secondary text-white mb-3">Ajouter un nouveau utilisateur</h3>
+  <div style="width:100%">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="picker-container">
+          <ngp-image-picker #imagepicker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)">
+          </ngp-image-picker>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <mat-label>Nom complet :</mat-label>
+              <input [(ngModel)]="user.name" matInput name="name"/>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Nom d'utilisateur :</mat-label>
+              <input [(ngModel)]="user.username" matInput name="username"/>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Mot de passe :</mat-label>
+              <input [(ngModel)]="user.password" matInput name="password"/>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Profile :</mat-label>
+              <select [(ngModel)]="user.profile" matNativeControl required>
+                <option value="admin">Administrateur</option>
+                <option value="student">Etudiant</option>
+                <option value="prof">Professeur</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12 row">
+            <div class="col">
+              <button type="button" style="width: 100%;margin-top: 20px;" mat-flat-button color="primary"
+                      (click)="submit()">Créer
+              </button>
+            </div>
+            <div class="col">
+              <button type="button" style="width: 100%;margin-top: 20px;" mat-flat-button color="accent"
+                      (click)="reset()">Restaurer
+              </button>
+            </div>
+            <div class="col">
+              <button type="button" style="width: 100%;margin-top: 20px;" mat-flat-button class="bg-dark text-white"
+                      (click)="showNewPanel(false)"> Fermer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-end">
+    <button *ngIf="!add" type="button" (click)="showNewPanel(true)" class="btn btn-primary btn-sm">Ajouter</button>
+  </div>
+</div>
+<mat-card class="h-100">
+  <mat-tab-group>
+    <mat-tab label="Administrateurs">
+      <div class="row w-100" *ngIf="admins">
+        <div class="col-6" *ngFor="let admin of admins">
+          <app-detail [user]="admin"></app-detail>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Professeurs">
+      <div class="row" *ngIf="profs">
+        <div class="col-6" *ngFor="let prof of profs">
+          <app-detail [user]="prof"></app-detail>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Elèves">
+      <div class="row" *ngIf="eleves">
+        <div class="col-6" *ngFor="let stuent of eleves">
+          <app-detail [user]="stuent"></app-detail>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

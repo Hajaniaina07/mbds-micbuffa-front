@@ -22,7 +22,13 @@ export class UsersService {
   }
 
   addUser(user: User) {
-    return this.http.post<User>(this.url, user);
+    return this.http.post<User>(this.url, user, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
+  getUsers() {
+    return this.http.get<any>(this.url);
+  }
 }

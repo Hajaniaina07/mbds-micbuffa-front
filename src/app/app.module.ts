@@ -35,35 +35,26 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import { UtilisateurComponent } from './users/utilisateur/utilisateur.component';
+import {UtilisateurComponent} from './users/utilisateur/utilisateur.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatieresComponent} from './matieres/matieres.component';
+import {AcceuilComponent} from './acceuil/acceuil.component';
+import {NgpImagePickerModule} from "ngp-image-picker";
+import {MatDialogModule} from "@angular/material/dialog";
+import { ProgressComponent } from './base/progress/progress.component';
+import { DetailComponent } from './users/detail/detail.component';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: AssignmentsComponent
-  },
-  {
-    path: "login",
-    component: LoginComponent
-  },
-  {
-    path: "home",
-    component: AssignmentsComponent
-  },
-  {
-    path: "add",
-    component: AddAssignmentComponent
-  },
-  {
-    path: "assignment/:id",
-    component: AssignmentDetailComponent
-  },
-  {
-    path: "assignment/:id/edit",
-    component: EditAssignmentComponent,
-    canActivate: [AuthGuard]
-  }
+  {path: "", component: AcceuilComponent},
+  {path: "accueuil", component: AcceuilComponent},
+  {path: "login", component: LoginComponent},
+  {path: "assignments", component: AssignmentsComponent},
+  {path: "add", component: AddAssignmentComponent},
+  {path: "assignment/:id", component: AssignmentDetailComponent},
+  {path: "assignment/:id/edit", component: EditAssignmentComponent, canActivate: [AuthGuard]},
+  {path: "users", component: UtilisateurComponent},
+  {path: "matières", component: MatieresComponent},
+
 ]
 
 @NgModule({
@@ -77,14 +68,18 @@ const routes: Routes = [
     EditAssignmentComponent,
     LoginComponent,
     UtilisateurComponent,
+    MatieresComponent,
+    AcceuilComponent,
+    ProgressComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, MatSnackBarModule,
-    BrowserAnimationsModule, FlexLayoutModule, MatDividerModule,
+    BrowserAnimationsModule, FlexLayoutModule, MatDividerModule, MatDialogModule,
     MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCheckboxModule, RouterModule.forRoot(routes), HttpClientModule, ScrollingModule,
     MatToolbarModule, MatInputModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatSlideToggleModule,
-    MatSelectModule, MatOptionModule, MatTabsModule,
+    MatSelectModule, MatOptionModule, MatTabsModule, NgpImagePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

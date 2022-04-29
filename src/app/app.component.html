@@ -13,26 +13,38 @@
 
 <!--<router-outlet></router-outlet>-->
 
-<mat-toolbar color="secondary" fxLayout="row" fxLayoutAlign="space-between center">
+<mat-toolbar style="margin-bottom: 15px;" color="secondary" fxLayout="row" fxLayoutAlign="space-between center">
   <span>
         <button mat-flat-button color="primary" routerLink="/"><mat-icon>home</mat-icon>
           {{titre}}
         </button>
   </span>
   <span>
-  <a mat-button href="">Devoirs</a>
-  <a mat-button href="">Matières</a>df
-  <a mat-button href="">Utilisateurs</a>
+  <a mat-button href="#" routerLink="/assignments">Devoirs</a>
+  <a mat-button href="#" routerLink="/matières">Matières</a>
+  <a mat-button href="#" routerLink="/users">Utilisateurs</a>
   </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
     <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
       <mat-icon>power_settings_new</mat-icon>
       Se connecter
     </button>
-    <label *ngIf="isAuthenticated"> <strong>{{user.username}}</strong>
-      <span class="mat-small"> ({{user.profile}})</span>
-    </label>
-    <button title="Se déconnecter" mat-button *ngIf="isAuthenticated" (click)="logout()">
+    <div *ngIf="isAuthenticated" class="col-1 d-flex align-items-center">
+      <img class="border border-secondary" width="50px" src="{{user.image}}">
+    </div>
+    <div class="row" *ngIf="isAuthenticated">
+      <div class="row d-flex justify-content-end">
+        <div class="row">
+          <div class="row d-flex justify-content-end">
+            <div class=""><h6>{{user.name}}</h6></div>
+            <div class=""><h6><span class="fst-italic">{{user.username }} </span>&nbsp;
+              <strong><small> ({{user.profile}})</small></strong></h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button title="Se déconnecter" mat-flat-button color="accent" *ngIf="isAuthenticated" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>

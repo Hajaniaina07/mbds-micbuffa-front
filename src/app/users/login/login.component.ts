@@ -23,11 +23,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.user);
     this.userService.login(this.user).subscribe(response => {
       const body = response.body;
       window.localStorage.setItem('token', body.token);
       window.localStorage.setItem('user', JSON.stringify(body.user));
-      this.router.navigate(['/home']).then(() => {
+      this.router.navigate(['/accueuil']).then(() => {
         window.location.reload();
       });
     }, erreur => {
