@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import * as hosts from "../../assets/url.json";
 import {User} from "../users/user.model";
-import {Assignment} from "../assignments/assignment.model";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -30,5 +29,10 @@ export class UsersService {
 
   getUsers() {
     return this.http.get<any>(this.url);
+  }
+
+  getUsersByProfile(profile: string) {
+    return this.http.get<any>(this.url + '/' + profile
+    );
   }
 }

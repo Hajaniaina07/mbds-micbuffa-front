@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="picker-container">
-          <ngp-image-picker #imagepicker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)">
+          <ngp-image-picker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)">
           </ngp-image-picker>
         </div>
       </div>
@@ -25,7 +25,7 @@
           <div class="col-md-6">
             <mat-form-field>
               <mat-label>Mot de passe :</mat-label>
-              <input [(ngModel)]="user.password" matInput name="password"/>
+              <input [(ngModel)]="user.password" type="password" matInput name="password"/>
             </mat-form-field>
           </div>
           <div class="col-md-6">
@@ -40,7 +40,8 @@
           </div>
           <div class="col-md-12 row">
             <div class="col">
-              <button type="button" style="width: 100%;margin-top: 20px;" mat-flat-button color="primary"
+              <button [disabled]="!user.profile || !user.name || !user.username" type="button"
+                      style="width: 100%;margin-top: 20px;" mat-flat-button color="primary"
                       (click)="submit()">Créer
               </button>
             </div>
@@ -69,6 +70,9 @@
 <mat-card class="h-100">
   <mat-tab-group>
     <mat-tab label="Administrateurs">
+      <div *ngIf="showLoader" class="col-12 d-flex justify-content-center align-items-center">
+        <img width="10%" src="assets/loader.gif" alt="Traitement en cours...">
+      </div>
       <div class="row w-100" *ngIf="admins">
         <div class="col-6" *ngFor="let admin of admins">
           <app-detail [user]="admin"></app-detail>
@@ -76,14 +80,20 @@
       </div>
     </mat-tab>
     <mat-tab label="Professeurs">
-      <div class="row" *ngIf="profs">
+      <div *ngIf="showLoader" class="col-12 d-flex justify-content-center align-items-center">
+        <img width="10%" src="assets/loader.gif" alt="Traitement en cours...">
+      </div>
+      <div class="row  w-100" *ngIf="profs">
         <div class="col-6" *ngFor="let prof of profs">
           <app-detail [user]="prof"></app-detail>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Elèves">
-      <div class="row" *ngIf="eleves">
+      <div *ngIf="showLoader" class="col-12 d-flex justify-content-center align-items-center">
+        <img width="10%" src="assets/loader.gif" alt="Traitement en cours...">
+      </div>
+      <div class="row  w-100" *ngIf="eleves">
         <div class="col-6" *ngFor="let stuent of eleves">
           <app-detail [user]="stuent"></app-detail>
         </div>

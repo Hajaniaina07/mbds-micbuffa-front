@@ -12,7 +12,6 @@ export class AuthService {
   logOut() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    window.location.reload();
   }
 
   isAdmin() {

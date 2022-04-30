@@ -28,7 +28,7 @@ export class AppComponent {
       // replaceUrl = true = force le refresh, même si
       // on est déjà sur la page d’accueil
       // Marche plus avec la dernière version d’angular
-      this.router.navigate(['/accueuil'], {replaceUrl: true});
+      this.router.navigate(['/accueuil'], {replaceUrl: true}).then();
     });
   }
 
@@ -38,7 +38,8 @@ export class AppComponent {
   }
 
   logout() {
-    this.navigateTo('/accueuil')
+    this.router.navigate(['/accueuil'], {replaceUrl: true}).then();
     this.authService.logOut();
+    window.location.reload();
   }
 }

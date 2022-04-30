@@ -43,6 +43,7 @@ import {NgpImagePickerModule} from "ngp-image-picker";
 import {MatDialogModule} from "@angular/material/dialog";
 import { ProgressComponent } from './base/progress/progress.component';
 import { DetailComponent } from './users/detail/detail.component';
+import { DetailMatiereComponent } from './matieres/detail-matiere/detail-matiere.component';
 
 const routes: Routes = [
   {path: "", component: AcceuilComponent},
@@ -72,6 +73,7 @@ const routes: Routes = [
     AcceuilComponent,
     ProgressComponent,
     DetailComponent,
+    DetailMatiereComponent,
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, MatSnackBarModule,
