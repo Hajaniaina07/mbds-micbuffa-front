@@ -1,3 +1,35 @@
+<mat-card>
+  <div class="round-logo-matiere" *ngIf="this.assignment.matiere">
+    <img src="{{this.assignment.matiere.image}}" alt=""/>
+  </div>
+  <div class=" content">
+    <div class="logo-content">
+
+    </div>
+    <div class="title-content">
+      <div class="row">
+        <div class="d-flex justify-content-center">
+          <mat-card-title>{{assignment.nom}}</mat-card-title>
+        </div>
+        <div class="d-flex justify-content-center align-items-center py-2">
+          <img src="{{this.assignment.matiere ?this.assignment.matiere.professeur.image:''}}" alt=""
+               width="25px">&nbsp;&nbsp;
+          <span>{{this.assignment.matiere ? this.assignment.matiere.professeur.name : ''}}</span>
+        </div>
+      </div>
+      <mat-card-subtitle>{{assignment.auteur ? assignment.auteur.name : ''}}</mat-card-subtitle>
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip selected>{{this.assignment.dateDeRendu | date}}</mat-chip>
+        <mat-chip *ngIf="assignment.note!=null && assignment.note!=undefined" color="accent" selected>
+          {{this.assignment.note}} / 20
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</mat-card>
+
+
+<!--
 <mat-card *ngIf="assignmentTransmis">
   <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
   <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
@@ -7,3 +39,4 @@
     <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
   </div>
 </mat-card>
+-->

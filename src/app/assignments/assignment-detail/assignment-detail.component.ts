@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
-import { AuthService } from 'src/app/shared/auth.service';
-import { Assignment } from '../assignment.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AssignmentsService} from 'src/app/shared/assignments.service';
+import {AuthService} from 'src/app/shared/auth.service';
+import {Assignment} from '../assignment.model';
 
 @Component({
   selector: 'app-assignment-detail',
   templateUrl: './assignment-detail.component.html',
-  styleUrls: ['./assignment-detail.component.css'],
+  styleUrls: ['./assignment-detail.component.scss'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  assignmentTransmis?: Assignment;
+
+  @Input() assignment!: Assignment;
+  @Output() rendre: EventEmitter<Assignment> = new EventEmitter<Assignment>();
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private authService:AuthService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+  }
+
+  ngOnInit(): void {
+    if (!this.assignment) this.assignment = new Assignment();
+  }
+
+}
+
+/*
 
   ngOnInit(): void {
     // on va récupérer l'id dans l'URL,
@@ -74,3 +85,5 @@ export class AssignmentDetailComponent implements OnInit {
     return this.authService.loggedIn;
   }
 }
+
+*/

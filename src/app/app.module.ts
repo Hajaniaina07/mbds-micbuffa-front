@@ -41,16 +41,18 @@ import {MatieresComponent} from './matieres/matieres.component';
 import {AcceuilComponent} from './acceuil/acceuil.component';
 import {NgpImagePickerModule} from "ngp-image-picker";
 import {MatDialogModule} from "@angular/material/dialog";
-import { ProgressComponent } from './base/progress/progress.component';
-import { DetailComponent } from './users/detail/detail.component';
-import { DetailMatiereComponent } from './matieres/detail-matiere/detail-matiere.component';
+import {ProgressComponent} from './base/progress/progress.component';
+import {DetailComponent} from './users/detail/detail.component';
+import {DetailMatiereComponent} from './matieres/detail-matiere/detail-matiere.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
+import {DetailUserComponent} from './users/detail-user/detail-user.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 const routes: Routes = [
-  {path: "", component: AcceuilComponent},
-  {path: "accueuil", component: AcceuilComponent},
+  {path: "", component: AssignmentsComponent},
+  {path: "accueuil", component: AssignmentsComponent},
   {path: "login", component: LoginComponent},
   {path: "assignments", component: AssignmentsComponent},
   {path: "add", component: AddAssignmentComponent},
@@ -77,6 +79,7 @@ const routes: Routes = [
     ProgressComponent,
     DetailComponent,
     DetailMatiereComponent,
+    DetailUserComponent,
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, MatSnackBarModule,
@@ -84,7 +87,7 @@ const routes: Routes = [
     MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCheckboxModule, RouterModule.forRoot(routes), HttpClientModule, ScrollingModule,
     MatToolbarModule, MatInputModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatSlideToggleModule,
-    MatSelectModule, MatOptionModule, MatTabsModule, NgpImagePickerModule, MatStepperModule, MatAutocompleteModule, AngularMultiSelectModule
+    MatSelectModule, MatOptionModule, MatTabsModule, NgpImagePickerModule, MatStepperModule, MatAutocompleteModule, AngularMultiSelectModule, MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
