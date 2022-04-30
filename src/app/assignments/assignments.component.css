@@ -8,15 +8,6 @@
   border: 2px dashed orange;
 }
 
-.container {
-  display:flex;
-  flex-direction: column;
-}
-
-.ajouterBtn {
-  align-self: flex-end;
-}
-
 table {
   width: 100%;
 }

@@ -44,6 +44,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ProgressComponent } from './base/progress/progress.component';
 import { DetailComponent } from './users/detail/detail.component';
 import { DetailMatiereComponent } from './matieres/detail-matiere/detail-matiere.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
 
 const routes: Routes = [
   {path: "", component: AcceuilComponent},
@@ -81,7 +84,7 @@ const routes: Routes = [
     MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCheckboxModule, RouterModule.forRoot(routes), HttpClientModule, ScrollingModule,
     MatToolbarModule, MatInputModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatSlideToggleModule,
-    MatSelectModule, MatOptionModule, MatTabsModule, NgpImagePickerModule
+    MatSelectModule, MatOptionModule, MatTabsModule, NgpImagePickerModule, MatStepperModule, MatAutocompleteModule, AngularMultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

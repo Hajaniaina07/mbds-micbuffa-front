@@ -1,8 +1,8 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
-import { AssignmentsService } from '../shared/assignments.service';
-import { Assignment } from './assignment.model';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+import {AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {filter, map, pairwise, tap, throttleTime} from 'rxjs';
+import {AssignmentsService} from '../shared/assignments.service';
+import {Assignment} from './assignment.model';
 
 @Component({
   selector: 'app-assignments',
@@ -10,24 +10,27 @@ import { Assignment } from './assignment.model';
   styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit, AfterViewInit {
-  assignments:Assignment[] = [];
+  assignments: Assignment[] = [];
   displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu'];
 
-  // pagination
-  page=1;
-  limit=10;
-  totalPages=0;
-  pagingCounter=0;
-  hasPrevPage=false;
-  hasNextPage=true;
-  prevPage= 1;
-  nextPage= 2;
+  add = false;
 
-  constructor(private assignmentsService:AssignmentsService, private ngZone: NgZone) {}
+  // pagination
+  page = 1;
+  limit = 10;
+  totalPages = 0;
+  pagingCounter = 0;
+  hasPrevPage = false;
+  hasNextPage = true;
+  prevPage = 1;
+  nextPage = 2;
+
+  constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone) {
+  }
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
-  ngAfterViewInit():void{
+  ngAfterViewInit(): void {
     this.scroller.elementScrolled().pipe(
       tap(event => {
         //console.log(event);
@@ -72,45 +75,45 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   getAssignments() {
-      // demander les données au service de gestion des assignments...
-      this.assignmentsService.getAssignments(this.page, this.limit)
+    // demander les données au service de gestion des assignments...
+    this.assignmentsService.getAssignments(this.page, this.limit)
       .subscribe(reponse => {
         console.log("données arrivées");
         this.assignments = reponse.docs;
         this.page = reponse.page;
-        this.limit=reponse.limit;
-        this.totalPages=reponse.totalPages;
-        this.pagingCounter=reponse.pagingCounter;
-        this.hasPrevPage=reponse.hasPrevPage;
-        this.hasNextPage=reponse.hasNextPage;
-        this.prevPage= reponse.prevPage;
-        this.nextPage= reponse.nextPage;
+        this.limit = reponse.limit;
+        this.totalPages = reponse.totalPages;
+        this.pagingCounter = reponse.pagingCounter;
+        this.hasPrevPage = reponse.hasPrevPage;
+        this.hasNextPage = reponse.hasNextPage;
+        this.prevPage = reponse.prevPage;
+        this.nextPage = reponse.nextPage;
       });
 
-      console.log("Après l'appel au service");
+    console.log("Après l'appel au service");
   }
 
   getAssignmentsScrollInfini() {
     // demander les données au service de gestion des assignments...
     this.assignmentsService.getAssignments(this.page, this.limit)
-    .subscribe(reponse => {
-      console.log("données arrivées");
-      //this.assignments = reponse.docs;
-      // au lieu de remplacer les assignments chargés par les nouveaux, on les ajoute
-      this.assignments = this.assignments.concat(reponse.docs);
+      .subscribe(reponse => {
+        console.log("données arrivées");
+        //this.assignments = reponse.docs;
+        // au lieu de remplacer les assignments chargés par les nouveaux, on les ajoute
+        this.assignments = this.assignments.concat(reponse.docs);
 
-      this.page = reponse.page;
-      this.limit=reponse.limit;
-      this.totalPages=reponse.totalPages;
-      this.pagingCounter=reponse.pagingCounter;
-      this.hasPrevPage=reponse.hasPrevPage;
-      this.hasNextPage=reponse.hasNextPage;
-      this.prevPage= reponse.prevPage;
-      this.nextPage= reponse.nextPage;
-    });
+        this.page = reponse.page;
+        this.limit = reponse.limit;
+        this.totalPages = reponse.totalPages;
+        this.pagingCounter = reponse.pagingCounter;
+        this.hasPrevPage = reponse.hasPrevPage;
+        this.hasNextPage = reponse.hasNextPage;
+        this.prevPage = reponse.prevPage;
+        this.nextPage = reponse.nextPage;
+      });
 
     console.log("Après l'appel au service");
-}
+  }
 
   pagePrecedente() {
     this.page--;
@@ -130,5 +133,9 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   dernierePage() {
     this.page = this.totalPages;
     this.getAssignments();
+  }
+
+  showNewPanel(b: boolean) {
+    this.add = b;
   }
 }

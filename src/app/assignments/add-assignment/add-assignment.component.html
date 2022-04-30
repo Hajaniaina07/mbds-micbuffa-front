@@ -1,3 +1,79 @@
+<mat-card class="my-3">
+  <mat-tab-group>
+    <mat-tab label="Formulaire avec étape">
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step>
+          <ng-template matStepLabel>Création</ng-template>
+          <div class="row d-flex justify-content-center">
+            <div class="row col-4">
+              <mat-form-field>
+                <input matInput placeholder="Nom de l'assignment" [(ngModel)]="newAssignment.nom" name="nom" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Date de rendu</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newAssignment.dateDeRendu" name="date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+              <button [disabled]="!newAssignment.nom || !newAssignment.dateDeRendu" class="btn btn-primary col-3"
+                      matStepperNext>Suivant
+              </button>
+            </div>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Assignment</ng-template>
+          <div class="row d-flex justify-content-center">
+
+            <angular2-multiselect class="form-control form-control-sm"
+                                  aria-placeholder="Selectionner une matière"
+                                  [data]="matieresList"
+                                  [(ngModel)]="selectedMatiere"
+                                  (onDeSelect)="onMatiereDeSelect($event)"
+                                  (onSelect)="onMatiereSelect($event)"
+                                  [settings]="settings">
+            </angular2-multiselect>
+
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Note et remarques</ng-template>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Résumé</ng-template>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </mat-tab>
+    <mat-tab label="Ajout multiple">
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+
+
+<!-- Copyright 2022 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at https://angular.io/license -->
+
+
+<!--
 <form ngForm #assignmentForm (submit)="onSubmit(); assignmentForm.reset()" class="form">
   <mat-form-field>
     <input matInput placeholder="Nom de l'assignment" [(ngModel)]="nomAssignment" name="nom" required>
@@ -14,3 +90,4 @@
       Ajouter un devoir
     </button>
 </form>
+-->
